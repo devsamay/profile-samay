@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Samay Singh | Web Developer</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet" />
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+  /* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #0a0a0a;
+  color: #fff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Canvas for animated background */
+#background-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Navigation Bar */
+nav {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+}
+nav a {
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  border-radius: 40px;
+  transition: background 0.3s, transform 0.3s;
+}
+nav a:hover {
+  background: #00fff7;
+  color: #000;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+}
+.hero h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  color: #00fff7;
+  letter-spacing: 2px;
+}
+.hero h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 40px;
+  color: #fff;
+  font-weight: 400;
+}
+.hero .buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #00fff7, #009e9e);
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px #00fff7;
+}
+
+/* Sections common styles */
+section {
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+section h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.8rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #fff;
+  letter-spacing: 1px;
+  position: relative;
+}
+section h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #00fff7;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+#about p {
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  text-align: center;
+  color: #ccc;
+}
+/* Style for social icons in About Me (app-style) */
+#about .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+#about .social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: #222;
+  color: #fff;
+  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+#about .social-icons a:hover {
+  transform: scale(1.1);
+}
+#about .social-icons a.instagram:hover {
+  background-color: #e1306c;
+}
+#about .social-icons a.discord:hover {
+  background-color: #5865f2;
+}
+#about .social-icons a.youtube:hover {
+  background-color: #ff0000;
+}
+
+/* Experience / Achievements Section */
+#experience {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+#experience .card {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#experience .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+#experience h4 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #00fff7;
+}
+#experience p {
+  font-size: 1.1rem;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Contact Section */
+#contact {
+  text-align: center;
+  margin-top: 50px;
+}
+#contact p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+#contact .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+#contact .social-icons a {
+  font-size: 2.2rem;
+  color: #fff;
+  transition: all 0.3s;
+}
+#contact .social-icons a:hover {
+  color: #00fff7;
+  transform: scale(1.2);
+}
+
+/* Footer */
+footer {
+  background: #111;
+  padding: 30px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #555;
+}
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+footer .social-links a {
+  font-size: 2rem;
+  color: #fff;
+  transition: all 0.3s;
+}
+footer .social-links a:hover {
+  color: #00fff7;
+  transform: scale(1.2);
+}
+/* Responsive */
+@media(max-width:768px){
+  .hero h1 { font-size: 2.5rem; }
+  .hero h2 { font-size: 1.2rem; }
+  nav {
+    top: 10px; right: 10px;
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Canvas for animated background -->
+<canvas id="background-canvas"></canvas>
+
+<!-- Navigation -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Samay Singh</h1>
+  <h2>Web Developer & Designer | Full-Stack Enthusiast</h2>
+  <div class="buttons">
+    <button class="btn" onclick="scrollTo('about')">About Me</button>
+    <button class="btn" onclick="scrollTo('skills')">Skills</button>
+    <button class="btn" onclick="scrollTo('experience')">Experience</button>
+    <button class="btn" onclick="scrollTo('contact')">Contact</button>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <h3>About Me</h3>
+  <p>Hello! I'm <strong>Samay Singh</strong>, a passionate web developer who loves crafting beautiful and functional websites. I specialize in modern, responsive designs and engaging user experiences. Let’s build something awesome together!</p>
+  <!-- Social icons with app-like style -->
+  <div class="social-icons">
+    <a href="https://www.instagram.com/yar_samay?igsh=MTI4b3RiZnk2cmt1ZA==" target="_blank" aria-label="Instagram" class="icon-btn instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://discord.com/users/1282744045961089047" target="_blank" aria-label="Discord" class="icon-btn discord"><i class="fab fa-discord"></i></a>
+    <a href="http://www.youtube.com/@CoderSamay" target="_blank" aria-label="YouTube" class="icon-btn youtube"><i class="fab fa-youtube"></i></a>
+  </div>
+</section>
+
+<!-- Experience / Highlights -->
+<section id="experience">
+  <h3>My Experience & Achievements</h3>
+  <div class="card">
+    <h4>Freelance Web Developer</h4>
+    <p>Built responsive websites for clients, focusing on modern UI/UX and performance optimization.</p>
+  </div>
+  <div class="card">
+    <h4>Open Source Contributor</h4>
+    <p>Contributed to popular open source projects, improving code quality and adding features.</p>
+  </div>
+  <div class="card">
+    <h4>Hackathon Winner</h4>
+    <p>Won awards in coding competitions for innovative project ideas and implementation.</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+  <h3>Contact Me</h3>
+  <p>Let's connect! Reach me via social media or email.</p>
+  <div class="social-icons">
+    <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="social-links">
+    <a href="#" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+    <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+    <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+    <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  </div>
+  <p>© 2024 Samay Singh. All Rights Reserved. | Designed & Developed with ❤️</p>
+</footer>
+
+<!-- Scripts for animated background -->
+<script>
+// --- Live animated background (particles & colors) ---
+const canvas = document.getElementById('background-canvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+// Particles
+class Particle {
+  constructor() {
+    this.x = Math.random() * window.innerWidth;
+    this.y = Math.random() * window.innerHeight;
+    this.vx = (Math.random() - 0.5) * 0.7;
+    this.vy = (Math.random() - 0.5) * 0.7;
+    this.size = Math.random() * 2 + 1;
+    this.color = `hsla(${Math.random() * 360}, 70%, 70%, 0.5)`;
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    if(this.x > window.innerWidth || this.x < 0) this.vx *= -1;
+    if(this.y > window.innerHeight || this.y < 0) this.vy *= -1;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+const particles = [];
+for(let i=0; i<150; i++) particles.push(new Particle());
+
+function animate() {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  for(let p of particles){
+    p.update();
+    p.draw();
+  }
+  connectParticles();
+  requestAnimationFrame(animate);
+}
+function connectParticles() {
+  for(let a=0; a<particles.length; a++) {
+    for(let b=a+1; b<particles.length; b++) {
+      const dx = particles[a].x - particles[b].x;
+      const dy = particles[a].y - particles[b].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if(dist<100){
+        ctx.beginPath();
+        ctx.strokeStyle= `hsla(${Math.random()*360},70%,70%,0.1)`;
+        ctx.lineWidth=1;
+        ctx.moveTo(particles[a].x, particles[a].y);
+        ctx.lineTo(particles[b].x, particles[b].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+animate();
+
+// --- Sticky nav shadow on scroll ---
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.backdropFilter = window.scrollY > 50 ? 'blur(10px)' : 'none';
+});
+
+// Smooth scroll
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
